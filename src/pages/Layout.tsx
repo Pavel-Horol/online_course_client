@@ -5,7 +5,7 @@ const Layout:FC = () => {
   return <>
     <header>Header</header>
     <main>
-        <Outlet/>
+    <Outlet/>
     </main>
     <footer>Footer</footer>
   </> 
