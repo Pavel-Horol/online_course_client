@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react'
-import './App.css'
 import  LoginForm  from './components/LoginForm'
 import { Context } from './main';
 import { observer } from 'mobx-react-lite';
