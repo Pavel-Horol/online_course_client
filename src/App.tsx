@@ -5,9 +5,21 @@ import { observer } from 'mobx-react-lite';
 import { IUser } from './models/IUser';
 import UserService from './services/UserService';
 
+import "preline/preline";
+import { IStaticMethods } from "preline/preline";
+import { useLocation } from 'react-router-dom';
+declare global {
+  interface Window {
+    HSStaticMethods: IStaticMethods;
+  }
+}
+
+
 function App() {
   const {store} = useContext(Context)
   const [users, setUsers] = useState<IUser[]>([]) 
+  const location = useLocation()  
+
   async function getUsers(){
     try{
       const response = await UserService.fetchUsers()
@@ -16,6 +28,10 @@ function App() {
     console.log('error', e)
     }
   }
+
+  useEffect(() => {
+    window.HSStaticMethods.autoInit()
+  }, [location.pathname]);
 
   useEffect(() => {
     if(localStorage.getItem('token')) {
