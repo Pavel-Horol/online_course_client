@@ -17,6 +17,8 @@
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "flowbite": "^2.5.2",
+    "flowbite-react": "^0.10.1",
     "lucide-react": "^0.446.0",
     "mobx": "^6.13.3",
     "mobx-react-lite": "^4.0.7",
