@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx"
 import { IUser } from "../models/IUser"
 import AuthService from "../services/AuthService";
 import { AuthResponse } from "../models/response/AuthResponse";
-import { API_URL } from "../http";
+import { API_URL } from "../api";
 import axios from "axios";
 
 export default class Store {
