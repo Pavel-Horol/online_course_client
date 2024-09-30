@@ -1,10 +1,8 @@
-import LoginForm from "@/components/Form"
 
 const Home = () => {
   return (
     <div>
-      <p>Home</p>
-      <LoginForm/>
+      <p className="font-fira">Home</p>
     </div>
     
   )

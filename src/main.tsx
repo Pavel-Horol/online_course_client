@@ -1,7 +1,7 @@
 import { createContext, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
-import './index.css'
+import './global.css'
 import Store from './store/store.ts';
 
 interface State {

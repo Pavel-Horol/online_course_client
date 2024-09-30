@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #222831; /* Main background color */
+    color: #EEEEEE; /* Default text color */
+  }
+
+  body {
+
+    @apply bg-background text-text min-h-screen font-fira; /* Use Tailwind's classes for min height */
+  }
+}
