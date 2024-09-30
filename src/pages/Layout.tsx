@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 const Layout:FC = () => {
   return <>
     <header>Header</header>
-    <main>
+    <main className="">
       <Outlet/>
     </main>
     <footer>Footer</footer>
