@@ -5,10 +5,11 @@ const Login = () => {
   const [email , setEmail] = useState<string>("")  
   const [password , setPassword] = useState<string>("")  
   const [showPassword, setShowPassword] = useState(false);
-
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+
+  
 
   return (
     <div className="flex justify-center items-center h-full bg-background">
