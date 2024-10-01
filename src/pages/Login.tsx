@@ -1,15 +1,30 @@
-import { useState } from "react"
+import { loginUser } from "@/store/slices/userSlice";
+import { useAppDispatch } from "@/store/store";
+import { FormEvent, useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email , setEmail] = useState<string>("")  
   const [password , setPassword] = useState<string>("")  
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useAppDispatch()  
+  const navigate = useNavigate()
+
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault()
+    dispatch(loginUser({email, password})).then(result => {
+      if (result.meta.requestStatus === 'fulfilled') {
+          navigate('/')
+      }
+    }) 
+  }
+
+
 
   return (
     <div className="flex justify-center items-center h-full bg-background">
@@ -55,6 +70,7 @@ const Login = () => {
         <button
           type="submit"
           className="w-full py-2 px-4 bg-accent hover:bg-accent-hover text-background font-bold rounded-lg transition-colors duration-300"
+          onClick={handleLogin}
         >
           Login
         </button>

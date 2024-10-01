@@ -14,7 +14,10 @@ export const loginUser = createAsyncThunk(
     async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
         try {
             const response = await AuthService.login(email, password) 
-            return response
+            return {
+                user: response.data.user,
+                accessToken: response.data.accessToken 
+            };
         } catch (error) {
             console.log('Error in userSlice loginUser', error)
             return rejectWithValue('Login failed')
@@ -27,7 +30,10 @@ export const registerUser = createAsyncThunk(
     async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
         try {
             const response = await AuthService.registration(email, password) 
-            return response
+            return {
+                user: response.data.user,
+                accessToken: response.data.accessToken
+            }
         } catch (error) {
             console.log('Error in userSlice registerUser', error)
             return rejectWithValue('Registration failed')
@@ -52,7 +58,7 @@ export const checkAuthUser = createAsyncThunk(
     async () => {
         try {
             const response = await AuthService.refresh()
-            TokenService.setToken(response.accessToken)
+            TokenService.setToken(response.data.accessToken)
             return response
         } catch (error) {
             console.log("Error in userSlice/checkAuth", error) 
@@ -64,7 +70,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        
+
     },
     extraReducers: (builder) => {
         // login
@@ -75,6 +81,7 @@ const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 console.log(action.payload);
                 state.user = action.payload.user
+                TokenService.setToken(action.payload.accessToken)
                 state.isAuth = true
                 state.status = 'succeeded'
             })
@@ -92,6 +99,7 @@ const userSlice = createSlice({
             .addCase(registerUser.fulfilled, (state, action) => {
                 console.log(action.payload);
                 state.user = action.payload.user
+                TokenService.setToken(action.payload.accessToken)
                 state.isAuth = true
                 state.status = 'succeeded'
             })
@@ -110,6 +118,7 @@ const userSlice = createSlice({
             .addCase(logoutUser.fulfilled, state => {
                 state.status = 'succeeded'
                 state.user = {} as IUser
+                TokenService.removeToken()
                 state.isAuth = false
             })
             .addCase(logoutUser.rejected, (state, action) => {
@@ -124,8 +133,8 @@ const userSlice = createSlice({
             })
             .addCase(checkAuthUser.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.user = action.payload?.user ?? {} as IUser;
-                state.isAuth = !!action.payload?.user;
+                state.user = action.payload?.data.user ?? {} as IUser;
+                state.isAuth = !!action.payload?.data.user;
             })
             .addCase(checkAuthUser.rejected, (state, action) => {
                 console.log(action.payload)

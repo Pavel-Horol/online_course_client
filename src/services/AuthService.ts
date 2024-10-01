@@ -1,15 +1,14 @@
 import $api from "@/api";
-import { AuthResponse } from "@/types/response/AuthResponse";
 
 export default class AuthService {
-    static async login (email: string, password: string): Promise<AuthResponse>  {
+    static async login (email: string, password: string)  {
         return await $api.post('/login', {email, password})
     }
-    static async registration (email: string, password: string): Promise<AuthResponse>  {
+    static async registration (email: string, password: string)  {
         return await $api.post('/registration', {email, password})
     }
 
-    static async refresh(): Promise<AuthResponse> {
+    static async refresh() {
         return await $api.get('/refresh', {withCredentials: true})
     }
     static async logout(){
