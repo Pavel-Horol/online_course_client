@@ -3,28 +3,25 @@ import Layout from "../pages/Layout";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Error from "@/pages/Error";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
+import Login from "@/pages/Auth";
+import routes from "./routes";
+import PrivateRoute from "./PrivateRoute";
 const router = createBrowserRouter([
     {
         element: <Layout/>,
         errorElement: <Error/>,
         children: [
             {
-                path: '/',
+                path: routes.home.path,
                 element: <Home/>
             },
             {
-                path: '/about',
-                element: <About/>
+                path: routes.about.path,
+                element: <PrivateRoute> <About/> </PrivateRoute>
             },
             {
-                path: '/login',
+                path: routes.auth.path,
                 element: <Login/>
-            },
-            {
-                path: '/register',
-                element: <Register/>
             }
         ]
     }

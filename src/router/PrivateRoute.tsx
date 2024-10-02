@@ -9,10 +9,11 @@ const PrivateRoute = ({ children }: {children: ReactNode}) => {
     const { isAuth, status } = useSelector((state: RootState) => state.user)
     useEffect(() => {
         if (!isAuth) {
-            dispatch(checkAuthUser())
+            if (!isAuth && status === 'idle') {
+                dispatch(checkAuthUser());
+            }
         }
-
-    }, [dispatch, isAuth]);
+    }, [dispatch, isAuth, status]);
 
     if (status === 'loading') {
         return <div>Loading...</div>; 
