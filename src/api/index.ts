@@ -12,17 +12,16 @@ const $api = axios.create({
 $api.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${TokenService.getToken()}`
     return config
+}, (error) => {
+    return Promise.reject(error)
 })
 
 $api.interceptors.response.use(config => {
     return config
 }, async error => {
     const originRequest = error.config
-    originRequest._isRetry = true 
-    if (
-        error.response.status === 401 &&
-        !originRequest._isRetry
-    ) {
+    if ( error.response.status === 401 && !originRequest._retry ) {
+        originRequest._retry = true 
         try{
             const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
             TokenService.setToken(response.data.accessToken)

@@ -55,11 +55,29 @@ export const logoutUser = createAsyncThunk(
 
 export const checkAuthUser = createAsyncThunk(
     'user/checkAuth',
-    async () => {
+    async (_, { rejectWithValue }) => {
         try {
-
+            const token = TokenService.getToken();
+            if (!token) {
+                return rejectWithValue('No token found');
+            }
+            const response = await AuthService.refresh();
+            if (response.status === 200) {
+                return {
+                    user: response.data.user,
+                    accessToken: response.data.accessToken,
+                };
+            } else {
+                return rejectWithValue('Failed to refresh token');
+            }
         } catch (error) {
-            console.log("Error in userSlice/checkAuth", error) 
+            console.log('Error in userSlice/checkAuth', error);
+            return rejectWithValue({
+                //@ts-expect-error some reason
+                message: error?.response?.data?.message || 'Refresh failed',
+                //@ts-expect-error some reason
+                status: error?.response?.status || 500
+            });
         }
     }
 )
@@ -119,8 +137,7 @@ const userSlice = createSlice({
                 TokenService.removeToken()
                 state.isAuth = false
             })
-            .addCase(logoutUser.rejected, (state, action) => {
-                console.log(action.payload)
+            .addCase(logoutUser.rejected, (state) => {
                 state.status = 'failed'
             })
         
@@ -129,12 +146,16 @@ const userSlice = createSlice({
             .addCase(checkAuthUser.pending, state => {
                 state.status = 'loading'
             })
-            .addCase(checkAuthUser.fulfilled, (state, action) => {
+            .addCase(checkAuthUser.fulfilled, (state, {payload}) => {
+                state.user = payload?.user
+                TokenService.setToken(payload?.accessToken)
+                state.isAuth = true
                 state.status = 'succeeded'
             })
-            .addCase(checkAuthUser.rejected, (state, action) => {
-                state.status = 'failed'
-            })
+            .addCase(checkAuthUser.rejected, (state) => {
+                state.isAuth = false;
+                state.status = 'failed';
+            });
     }
 }) 
 
