@@ -20,6 +20,9 @@ export default {
 				  DEFAULT: '#00ADB5', 
 				  hover: '#009DA5',
 				},
+				opposed: {
+					DEFAULT: '#FF2E63'
+				}
 			  },
 			  fontFamily: {
 				'fira': ['Fira Code', 'monospace'], 

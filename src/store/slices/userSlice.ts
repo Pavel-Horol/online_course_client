@@ -57,9 +57,7 @@ export const checkAuthUser = createAsyncThunk(
     'user/checkAuth',
     async () => {
         try {
-            const response = await AuthService.refresh()
-            TokenService.setToken(response.data.accessToken)
-            return response
+
         } catch (error) {
             console.log("Error in userSlice/checkAuth", error) 
         }
@@ -133,12 +131,8 @@ const userSlice = createSlice({
             })
             .addCase(checkAuthUser.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.user = action.payload?.data.user ?? {} as IUser;
-                state.isAuth = !!action.payload?.data.user;
             })
             .addCase(checkAuthUser.rejected, (state, action) => {
-                console.log(action.payload)
-                state.isAuth = false
                 state.status = 'failed'
             })
     }

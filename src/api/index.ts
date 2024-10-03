@@ -1,4 +1,5 @@
 import TokenService from '@/services/TokenService';
+import { AuthResponse } from '@/types/response/AuthResponse';
 import axios from "axios"
 
 export const API_URL = 'http://localhost:5000/api'
@@ -16,15 +17,14 @@ $api.interceptors.request.use(config => {
 $api.interceptors.response.use(config => {
     return config
 }, async error => {
-    const originRequest = {...error.config}
+    const originRequest = error.config
     originRequest._isRetry = true 
     if (
         error.response.status === 401 &&
-        error.config &&
-        !error.config._isRetry
+        !originRequest._isRetry
     ) {
         try{
-            const response = await $api.get('/refresh')
+            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
             TokenService.setToken(response.data.accessToken)
             
             return $api.request(originRequest)

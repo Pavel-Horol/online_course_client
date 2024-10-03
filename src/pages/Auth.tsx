@@ -3,7 +3,7 @@ import RegisterForm from "@/components/RegisterForm"
 import { useState } from "react"
 
 const Auth = () => {
-    const [formType, setFormType] = useState<'Login' | 'Register'>("Register")   
+    const [formType, setFormType] = useState<'Login' | 'Register'>('Login')   
 
     return (
       <div className="flex justify-center items-center h-full bg-background">
