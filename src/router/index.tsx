@@ -5,6 +5,7 @@ import About from "../pages/About";
 import Error from "@/pages/Error";
 import Login from "@/pages/Auth";
 import routes from "./routes";
+import PrivateRouter from "./PrivateRouter";
 const router = createBrowserRouter([
     {
         element: <Layout/>,
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
             },
             {
                 path: routes.about.path,
-                element:  <About/> 
+                element: <PrivateRouter> <About/> </PrivateRouter>   
             },
             {
                 path: routes.auth.path,

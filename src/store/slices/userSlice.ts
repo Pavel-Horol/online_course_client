@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import AuthService from "@/services/AuthService";
 import TokenService from "@/services/TokenService";
 import { IUser, UserState } from "@/types/User";
@@ -58,9 +59,8 @@ export const checkAuthUser = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const token = TokenService.getToken();
-            if (!token) {
-                return rejectWithValue('No token found');
-            }
+            if (!token) { return rejectWithValue('No token found'); }
+
             const response = await AuthService.refresh();
             if (response.status === 200) {
                 return {
@@ -71,13 +71,10 @@ export const checkAuthUser = createAsyncThunk(
                 return rejectWithValue('Failed to refresh token');
             }
         } catch (error) {
-            console.log('Error in userSlice/checkAuth', error);
-            return rejectWithValue({
-                //@ts-expect-error some reason
-                message: error?.response?.data?.message || 'Refresh failed',
-                //@ts-expect-error some reason
-                status: error?.response?.status || 500
-            });
+            //@ts-ignore
+            console.log(error.response?.data?.message || 'unexpected error');
+            //@ts-ignore
+            return rejectWithValue(error.response?.data);
         }
     }
 )
@@ -147,8 +144,8 @@ const userSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(checkAuthUser.fulfilled, (state, {payload}) => {
-                state.user = payload?.user
-                TokenService.setToken(payload?.accessToken)
+                state.user = payload.user
+                TokenService.setToken(payload.accessToken)
                 state.isAuth = true
                 state.status = 'succeeded'
             })

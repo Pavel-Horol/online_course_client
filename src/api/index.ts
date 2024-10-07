@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import TokenService from '@/services/TokenService';
 import { AuthResponse } from '@/types/response/AuthResponse';
 import axios from "axios"
@@ -28,7 +29,8 @@ $api.interceptors.response.use(config => {
             
             return $api.request(originRequest)
         } catch(error){
-            console.log('Auth error', error)
+            //@ts-ignore
+            console.log('Auth error:', error.response.data.message)
         }
     }
     throw error
