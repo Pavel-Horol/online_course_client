@@ -1,13 +1,15 @@
-export default class TokenService {
-    static setToken(token: string) {
+class TokenService {
+    setToken(token: string) {
         return localStorage.setItem('token', token)
     }    
 
-    static getToken() {
+    getToken() {
        return localStorage.getItem('token')
     }
 
-    static removeToken() {
+    removeToken() {
         return localStorage.removeItem('token')
     }
 }
+
+export default new TokenService()
