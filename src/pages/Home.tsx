@@ -1,3 +1,4 @@
+import Post from "@/components/Post";
 import CreatePostForm from "@/components/PostForm";
 import PostService from "@/services/PostService";
 import { motion } from "framer-motion";
@@ -50,16 +51,7 @@ const Home = () => {
       <h1 className="text-4xl font-bold mb-6 text-accent">Posts</h1>
       <div className="w-full mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
         {posts && posts.map((post) => (
-          <div key={post._id} className="bg-background-secondary p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-accent hover:text-accent-hover">
-              {post.title}
-            </h2>
-            <p className="text-text-secondary mt-2">{post.content}</p>
-            <div className="mt-4 text-sm text-text-secondary">
-              <p>Author: {post.author.email}</p>
-              <p>Posted on: {new Date(post.createdAt).toLocaleDateString()}</p>
-            </div>
-          </div>
+          <Post {...post}/>
         ))}
         <motion.div
          whileHover={{scale: 1.1}}

@@ -6,6 +6,7 @@ import Error from "@/pages/Error";
 import Login from "@/pages/Auth";
 import routes from "./routes";
 import PrivateRouter from "./PrivateRouter";
+import Profile from "@/pages/Profile";
 const router = createBrowserRouter([
     {
         element: <Layout/>,
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: routes.auth.path,
                 element: <Login/>
+            },
+            {
+                path: routes.profile.path,
+                element: <Profile/>
             }
         ]
     }

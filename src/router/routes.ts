@@ -12,6 +12,10 @@ const routes = {
     auth: {
         path: '/auth',
         name: 'Auth'
+    },
+    profile: {
+        path: '/profile',
+        name: 'Profile', 
     }
 }
 
