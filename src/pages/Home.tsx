@@ -17,7 +17,9 @@ const Home = () => {
         console.log(response);
         if(response.status !== 200) { throw new Error('Network response was not ok') } 
         setPosts(response.data)
-      }catch(erorr){
+      }catch(error){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         setError(error)        
       }finally{
         setLoading(false)
@@ -50,8 +52,8 @@ const Home = () => {
     <div className="bg-background p-4 text-text font-fira">
       <h1 className="text-4xl font-bold mb-6 text-accent">Posts</h1>
       <div className="w-full mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-        {posts && posts.map((post) => (
-          <Post {...post}/>
+        {posts && posts.map((post, index) => (
+          <Post key={index} {...post}/>
         ))}
         <motion.div
          whileHover={{scale: 1.1}}

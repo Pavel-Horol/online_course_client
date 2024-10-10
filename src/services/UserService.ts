@@ -1,9 +1,12 @@
+import $api from "@/api";
+
 class UserService {
-    getProfile() {
-        throw new Error("Method not implemented.");
+    async getProfile() {
+        const userData = await $api.get('/auth/profile')
+        return userData
     }
-    activateEmail() {
-        throw new Error("Method not implemented.");
+    async activateEmail() {
+        return await $api.get('/auth/getActivationLink')
     }
 
 }

@@ -1,21 +1,23 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import UserService from "@/services/UserService";
 import { useEffect, useState } from "react";
 
 const Profile = () => {
   const [email, setEmail] = useState<string>("");
   const [isEmailActivated, setIsEmailActivated] = useState<boolean>(false);
+  const [roles, setRoles] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        // const response = await UserService.getProfile();
-        // setEmail(response.data.email || "some email");
-        // setIsEmailActivated(response.data.isEmailActivated);
-        setEmail("some email");
-        setIsEmailActivated(false);
+        const response = await UserService.getProfile();
+        setEmail(response.data.email || "Unknown email");
+        setIsEmailActivated(response.data.isActivated);
+        setRoles(response.data.roles)
       } catch (error) {
+        console.log('error', error)
         setError("Error fetching profile information.");
       } finally {
         setLoading(false);
@@ -31,6 +33,7 @@ const Profile = () => {
         setIsEmailActivated(true); 
       }
     } catch (error) {
+      console.log('first', error)
       setError("Error activating email.");
     }
   };
@@ -45,6 +48,12 @@ const Profile = () => {
       <div className="mb-4">
         <p className="text-lg">
           <strong>Email:</strong> {email}
+        </p>
+      </div>
+
+      <div className="mb-4">
+        <p className="text-lg">
+          <strong>Roles:</strong> {roles.join(' ')}
         </p>
       </div>
 

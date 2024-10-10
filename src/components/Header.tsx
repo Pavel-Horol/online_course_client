@@ -1,32 +1,36 @@
-import { useSelector } from "react-redux"
-import Logout from "./Logout"
-import { RootState } from "@/store/store"
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import Logout from "./Logout";
+import { RootState } from "@/store/store";
+import routes from "@/router/routes";
 
 const Header = () => {
-  const {isAuth} = useSelector((state:RootState) => state.user)  
+  const { isAuth } = useSelector((state: RootState) => state.user);
+
   return (
-      <header className="bg-background-secondary p-4 rounded-md m-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">Header</h1>
-        {isAuth && 
-          <Logout/>
-        }
-        </div>
-      </header>
-  )
-}
+    <header className="bg-background-secondary p-4 rounded-md m-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <h1 className="text-xl font-bold">Header</h1>
 
-export default Header
+        <nav className="flex space-x-4">
+          {Object.entries(routes).map(([key, route]) => (
+            <NavLink
+              key={key}
+              to={route.path}
+              className={({ isActive }) =>
+                `p-4 transition-colors duration-300 ${isActive ? "text-accent font-bold" : "text-white"}`
+              }
+            >
+              {route.name}
+            </NavLink>
+          ))}
+        </nav>
 
+        {isAuth && <Logout />}
+      </div>
 
-{/* 
-import { checkAuthUser } from "@/store/slices/userSlice"
-const dispatch = useAppDispatch()
-<button
-  className="px-4 py-2 bg-accent rounded-md" 
-  onClick={() => {
-    dispatch(checkAuthUser())
-  }}
->
-  refresh
-</button> */}
+    </header>
+  );
+};
+
+export default Header;
