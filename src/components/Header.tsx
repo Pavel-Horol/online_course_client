@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import Logout from "./Logout";
 import { RootState } from "@/store/store";
 import routes from "@/router/routes";
@@ -13,7 +13,8 @@ const Header = () => {
         <h1 className="text-xl font-bold">Header</h1>
 
         <nav className="flex space-x-4">
-          {Object.entries(routes).map(([key, route]) => (
+          {Object.entries(routes).map(([key, route]) => {
+            return route.include ? (
             <NavLink
               key={key}
               to={route.path}
@@ -23,7 +24,8 @@ const Header = () => {
             >
               {route.name}
             </NavLink>
-          ))}
+            ) : null;
+          })}
         </nav>
 
         {isAuth && <Logout />}
