@@ -2,11 +2,8 @@ import $api from "@/api";
 
 class UserService {
     async uploadPhoto(file: File) {
-        console.log('file',file)
         const formData = new FormData()
         formData.append('file', file)
-    
-        console.log('formData ', formData)
         const userData = await $api.post('/auth/uploadPhoto', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
