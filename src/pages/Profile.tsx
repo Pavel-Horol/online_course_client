@@ -94,7 +94,7 @@ const Profile = () => {
               dragging ? "border-accent bg-gray-100" : "border-gray-300"
             }`}
           >
-            <input type="file" name="file" accept=".png,.jpg,.jpeg" 
+            <input type="file" name="image" accept=".png,.jpg,.jpeg" 
             onChange={handleFileChange} 
 
             className="hidden" id="file-upload" />
