@@ -5,7 +5,7 @@ export interface IUser {
 }
 
 export interface UserState {
-    user: IUser
-    isAuth: boolean
+    user: IUser;
+    isAuth: boolean;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
 }

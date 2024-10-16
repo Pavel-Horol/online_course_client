@@ -1,26 +1,24 @@
-
-
 const routes = {
     home: {
         path: '/',
         name: 'Home',
-        include: true
+        include: true,
     },
     about: {
         path: '/about',
         name: 'About',
-        include: true
+        include: true,
     },
     auth: {
         path: '/auth',
         name: 'Auth',
-        include: false
+        include: false,
     },
     profile: {
         path: '/profile',
-        name: 'Profile', 
-        include: true
-    }
-}
+        name: 'Profile',
+        include: true,
+    },
+};
 
-export default routes
+export default routes;

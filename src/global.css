@@ -5,13 +5,12 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    background-color: #222831; /* Main background color */
-    color: #EEEEEE; /* Default text color */
-  }
+    html {
+        background-color: #222831; /* Main background color */
+        color: #eeeeee; /* Default text color */
+    }
 
-  body {
-
-    @apply bg-background text-text min-h-screen font-fira; /* Use Tailwind's classes for min height */
-  }
+    body {
+        @apply bg-background text-text min-h-screen font-fira; /* Use Tailwind's classes for min height */
+    }
 }
