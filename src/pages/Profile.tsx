@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import PhotoDrop from '@/components/PhotoDrop';
 import UserService from '@/services/UserService';
 import { useEffect, useState } from 'react';
 
@@ -45,7 +46,7 @@ const Profile = () => {
             <div className="bg-background-secondary p-8 rounded-lg shadow-lg w-full max-w-md">
                 <div className="p-4">
                     <h1 className="text-3xl font-bold mb-6">Profile</h1>
-
+                    <PhotoDrop />
                     <div className="mb-4">
                         <p className="text-lg">
                             <strong>Email:</strong> {email}

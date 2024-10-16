@@ -20,8 +20,6 @@ const Home = () => {
                 }
                 setPosts(response.data);
             } catch (error) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                //@ts-ignore
                 setError(error);
             } finally {
                 setLoading(false);
