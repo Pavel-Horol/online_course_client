@@ -3,8 +3,7 @@ import TokenService from '@/services/TokenService';
 import { AuthResponse } from '@/types/response/AuthResponse';
 import axios from 'axios';
 
-export const API_URL = 'http://localhost:5000/api';
-
+export const API_URL = import.meta.env.VITE_SERVER_URL;
 const $api = axios.create({
     withCredentials: true,
     baseURL: API_URL,
