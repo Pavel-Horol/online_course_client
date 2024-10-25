@@ -3,9 +3,16 @@ import CreatePostForm from '@/components/PostForm';
 import PostService from '@/services/PostService';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+interface PostI {
+    _id: string;
+    title: string;
+    author: { email: string };
+    content: string;
+    createdAt: string;
+}
 
 const Home = () => {
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<PostI[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
@@ -20,7 +27,8 @@ const Home = () => {
                 }
                 setPosts(response.data);
             } catch (error) {
-                setError(error);
+                console.log(error)
+                setError("some error");
             } finally {
                 setLoading(false);
             }
@@ -28,12 +36,13 @@ const Home = () => {
         fetchData();
     }, [render]);
 
-    const handlePostCreated = async (newPost: any) => {
+    const handlePostCreated = async (newPost: {title: string, content: string}) => {
         try {
             await PostService.create(newPost);
             setRender((prev) => !prev);
         } catch (error) {
-            throw new Error('error while creating post', error);
+            console.log('error', error)            
+            throw new Error('error while creating post' );
         } finally {
             setIsFormVisible(false);
         }
