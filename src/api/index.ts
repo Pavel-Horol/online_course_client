@@ -29,7 +29,7 @@ $api.interceptors.response.use(
             originRequest._retry = true;
             try {
                 const response = await axios.get<AuthResponse>(
-                    `${API_URL}/refresh`,
+                    `${API_URL}/auth/refresh`,
                     {
                         withCredentials: true,
                     },
